@@ -32,4 +32,8 @@ func main() {
 
 	match, _ := regexp.MatchString("\\$MY_VAR", s)
 	fmt.Println(match)
+
+	r, _ := regexp.Compile("\\$MY_VAR")
+	t := r.ReplaceAllString(s, "my value")
+	fmt.Println(t)
 }
