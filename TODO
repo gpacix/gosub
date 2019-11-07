@@ -1,8 +1,8 @@
 To Do list for gosub:
 
-__ drop outer " or ' IF BOTH THERE.
 __ figure out if we should trim trailing whitespace
 __ make recursive substitution predictable: just keep running up to, say, 10 times?
 __ identify lines with possible substitution? more efficient, enables default-empty
 __ optionally replace nonexistent/undefined vars with ""
 ++ don't replace if \$ (ugh)
+++ drop outer " or ' IF BOTH THERE.

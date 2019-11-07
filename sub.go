@@ -48,8 +48,21 @@ func main() {
 		for _, ln := range lines {
 			if ! is_comment.MatchString(ln) {
 				kv := splitOnce(strings.TrimLeft(ln, " \t"), "=")
-				if len(kv[0]) > 0 {
-					varValueMap[kv[0]] = kv[1]
+				varName := kv[0]
+				if len(varName) > 0 {
+					value := kv[1]
+					// If there are outer single or double quotes, don't treat them as part of the value:
+					if len(value) >= 2 {
+						lastIndex := len(value)-1
+						first := string(value[0])
+						last := string(value[lastIndex])
+						if first == "'" && last == "'" {
+							value = value[1:lastIndex]
+						} else if first == "\"" && last == "\"" {
+							value = value[1:lastIndex]
+						}
+					}
+					varValueMap[varName] = value
 				}
 			}
 		}
