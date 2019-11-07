@@ -5,9 +5,6 @@ import (
 	"os"
 	"regexp"
 	"strings"
-	//"bytes"
-	//	"bufio"
-	//	"io"
 	"io/ioutil"
 )
 
@@ -26,10 +23,6 @@ func splitOnce(s string, sep string) ([2]string) {
 }
 
 func main() {
-
-	//dat, err := ioutil.ReadFile("/tmp/dat")
-	//check(err)
-	//fmt.Print(string(dat))
 
 	args := os.Args[1:]
 	//fmt.Println("args:", args)
@@ -85,7 +78,4 @@ func main() {
 	s = strings.ReplaceAll(s, "\377", "$")
 	fmt.Print(s)
 
-	//ln := "MY_VAR=eq in my=value"
-	//fmt.Println(splitOnce(ln, "=")[0])
-	//fmt.Println(splitOnce(ln, "=")[1])
 }
