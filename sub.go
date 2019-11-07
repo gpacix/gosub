@@ -3,8 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
-	//"bytes"
 	"regexp"
+	"strings"
+	//"bytes"
 	//	"bufio"
 	//	"io"
 	//"io/ioutil"
@@ -14,6 +15,14 @@ func check(e error) {
 	if e != nil {
 		panic(e)
 	}
+}
+
+func splitOnce(s string, sep string) ([2]string) {
+	i := strings.Index(s, sep)
+	if (i == -1) {
+		return [2]string{s, ""}
+	}
+	return [2]string{s[:i], s[i+1:]}
 }
 
 func main() {
@@ -39,4 +48,8 @@ func main() {
 	r2, _ := regexp.Compile("\\${" + varname + "}")
 	t2 := r2.ReplaceAllString(t, "my value")
 	fmt.Println(t2)
+
+	ln := "MY_VAR=eq in my=value"
+	fmt.Println(splitOnce(ln, "=")[0])
+	fmt.Println(splitOnce(ln, "=")[1])
 }
