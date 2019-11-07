@@ -33,7 +33,7 @@ func main() {
 
 	f := os.Stdin
 
-	b1 := make([]byte, 50)
+	b1 := make([]byte, 500)
 	n1, err := f.Read(b1)
 	check(err)
 	s := string(b1[:n1])
@@ -42,14 +42,18 @@ func main() {
 	match, _ := regexp.MatchString("\\$MY_VAR", s)
 	fmt.Println(match)
 
-	varname := "MY_VAR"
-	r, _ := regexp.Compile("\\$" + varname + "\\b")
-	t := r.ReplaceAllString(s, "my value")
-	r2, _ := regexp.Compile("\\${" + varname + "}")
-	t2 := r2.ReplaceAllString(t, "my value")
-	fmt.Println(t2)
+	m := map[string]string{"MY_VAR": "my value", "OTHER": "another val"}
+	fmt.Println(m)
 
-	ln := "MY_VAR=eq in my=value"
-	fmt.Println(splitOnce(ln, "=")[0])
-	fmt.Println(splitOnce(ln, "=")[1])
+	for k, v := range m {
+		r, _ := regexp.Compile("\\$" + k + "\\b")
+		s = r.ReplaceAllString(s, v)
+		r2, _ := regexp.Compile("\\${" + k + "}")
+		s = r2.ReplaceAllString(s, v)
+		fmt.Print(s)
+	}
+
+	//ln := "MY_VAR=eq in my=value"
+	//fmt.Println(splitOnce(ln, "=")[0])
+	//fmt.Println(splitOnce(ln, "=")[1])
 }
