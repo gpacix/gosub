@@ -47,7 +47,7 @@ func main() {
 		lines := strings.Split(string(d), "\n")
 		for _, ln := range lines {
 			if ! is_comment.MatchString(ln) {
-				kv := splitOnce(ln, "=")
+				kv := splitOnce(strings.TrimLeft(ln, " \t"), "=")
 				if len(kv[0]) > 0 {
 					m[kv[0]] = kv[1]
 				}
