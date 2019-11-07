@@ -39,19 +39,22 @@ func main() {
 		fmt.Fprintf(os.Stderr, "usage: gosub [varfile] [varfile ...] < templatefile\n")
 		os.Exit(1)
 	}
+	is_comment, _ := regexp.Compile("^[ \t]*#")
 	m := map[string]string{}
 	for _, fn := range args {
 		d, err := ioutil.ReadFile(fn)
 		check(err)
 		lines := strings.Split(string(d), "\n")
 		for _, ln := range lines {
-			kv := splitOnce(ln, "=")
-			if len(kv[0]) > 0 {
-				m[kv[0]] = kv[1]
+			if ! is_comment.MatchString(ln) {
+				kv := splitOnce(ln, "=")
+				if len(kv[0]) > 0 {
+					m[kv[0]] = kv[1]
+				}
 			}
 		}
 	}
-	//fmt.Println(m)
+	//fmt.Fprintf(os.Stderr, "%s\n", m)
 
 	dat, err := ioutil.ReadAll(os.Stdin)
 	check(err)
