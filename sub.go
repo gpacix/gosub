@@ -8,7 +8,7 @@ import (
 	//"bytes"
 	//	"bufio"
 	//	"io"
-	//"io/ioutil"
+	"io/ioutil"
 )
 
 func check(e error) {
@@ -31,16 +31,17 @@ func main() {
 	//check(err)
 	//fmt.Print(string(dat))
 
-	f := os.Stdin
+	args := os.Args[1:]
+	fmt.Println("args:", args)
+	//if len(args) < 1 {
+	//	fmt.Println("WARNING: no variable files specified; no substitution will be done")
+	//}
 
-	b1 := make([]byte, 500)
-	n1, err := f.Read(b1)
+	dat, err := ioutil.ReadAll(os.Stdin)
 	check(err)
-	s := string(b1[:n1])
-	fmt.Printf("%d bytes: %s", n1, s)
 
-	match, _ := regexp.MatchString("\\$MY_VAR", s)
-	fmt.Println(match)
+	s := string(dat)
+	fmt.Printf("%d bytes: %s", len(dat), s)
 
 	m := map[string]string{"MY_VAR": "my value", "OTHER": "another val"}
 	fmt.Println(m)
