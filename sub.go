@@ -33,9 +33,12 @@ func main() {
 
 	args := os.Args[1:]
 	//fmt.Println("args:", args)
-	//if len(args) < 1 {
-	//	fmt.Println("WARNING: no variable files specified; no substitution will be done")
-	//}
+	if len(args) < 1 {
+		fmt.Fprintf(os.Stderr, "WARNING: no variable files specified; no substitution will be done\n")
+	} else if args[0][0] == "-"[0] {
+		fmt.Fprintf(os.Stderr, "usage: gosub [varfile] [varfile ...] < templatefile\n")
+		os.Exit(1)
+	}
 	m := map[string]string{}
 	for _, fn := range args {
 		d, err := ioutil.ReadFile(fn)
