@@ -36,7 +36,7 @@ func main() {
 	//if len(args) < 1 {
 	//	fmt.Println("WARNING: no variable files specified; no substitution will be done")
 	//}
-	m := map[string]string{"MY_VAR": "my value", "OTHER": "another val"}
+	m := map[string]string{}
 	for _, fn := range args {
 		d, err := ioutil.ReadFile(fn)
 		check(err)
