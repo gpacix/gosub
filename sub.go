@@ -1,11 +1,13 @@
 package main
 
 import (
-	//	"bufio"
 	"fmt"
+	"os"
+	//"bytes"
+	"regexp"
+	//	"bufio"
 	//	"io"
 	//"io/ioutil"
-	"os"
 )
 
 func check(e error) {
@@ -22,9 +24,12 @@ func main() {
 
 	f := os.Stdin
 
-	b1 := make([]byte, 5)
+	b1 := make([]byte, 50)
 	n1, err := f.Read(b1)
 	check(err)
-	fmt.Printf("%d bytes: %s\n", n1, string(b1[:n1]))
-	
+	s := string(b1[:n1])
+	fmt.Printf("%d bytes: %s", n1, s)
+
+	match, _ := regexp.MatchString("\\$MY_VAR", s)
+	fmt.Println(match)
 }
