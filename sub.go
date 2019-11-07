@@ -4,7 +4,7 @@ import (
 	//	"bufio"
 	"fmt"
 	//	"io"
-	"io/ioutil"
+	//"io/ioutil"
 	"os"
 )
 
@@ -16,12 +16,11 @@ func check(e error) {
 
 func main() {
 
-	dat, err := ioutil.ReadFile("/tmp/dat")
-	check(err)
-	fmt.Print(string(dat))
+	//dat, err := ioutil.ReadFile("/tmp/dat")
+	//check(err)
+	//fmt.Print(string(dat))
 
-	f, err := os.Open("/tmp/dat")
-	check(err)
+	f := os.Stdin
 
 	b1 := make([]byte, 5)
 	n1, err := f.Read(b1)
