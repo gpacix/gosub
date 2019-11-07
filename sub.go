@@ -36,5 +36,7 @@ func main() {
 	varname := "MY_VAR"
 	r, _ := regexp.Compile("\\$" + varname + "\\b")
 	t := r.ReplaceAllString(s, "my value")
-	fmt.Println(t)
+	r2, _ := regexp.Compile("\\${" + varname + "}")
+	t2 := r2.ReplaceAllString(t, "my value")
+	fmt.Println(t2)
 }
