@@ -62,12 +62,14 @@ func main() {
 	s := string(dat)
 	//fmt.Printf("%d bytes: %s", len(dat), s)
 
+	s = strings.ReplaceAll(s, "\\$", "\377")
 	for k, v := range m {
 		r, _ := regexp.Compile("\\$" + k + "\\b")
 		s = r.ReplaceAllString(s, v)
 		r2, _ := regexp.Compile("\\${" + k + "}")
 		s = r2.ReplaceAllString(s, v)
 	}
+	s = strings.ReplaceAll(s, "\377", "$")
 	fmt.Print(s)
 
 	//ln := "MY_VAR=eq in my=value"
