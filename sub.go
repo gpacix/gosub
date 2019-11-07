@@ -40,7 +40,7 @@ func main() {
 		os.Exit(1)
 	}
 	is_comment, _ := regexp.Compile("^[ \t]*#")
-	m := map[string]string{}
+	varValueMap := map[string]string{}
 	for _, fn := range args {
 		d, err := ioutil.ReadFile(fn)
 		check(err)
@@ -49,12 +49,12 @@ func main() {
 			if ! is_comment.MatchString(ln) {
 				kv := splitOnce(strings.TrimLeft(ln, " \t"), "=")
 				if len(kv[0]) > 0 {
-					m[kv[0]] = kv[1]
+					varValueMap[kv[0]] = kv[1]
 				}
 			}
 		}
 	}
-	//fmt.Fprintf(os.Stderr, "%s\n", m)
+	//fmt.Fprintf(os.Stderr, "%s\n", varValueMap)
 
 	dat, err := ioutil.ReadAll(os.Stdin)
 	check(err)
@@ -63,11 +63,11 @@ func main() {
 	//fmt.Printf("%d bytes: %s", len(dat), s)
 
 	s = strings.ReplaceAll(s, "\\$", "\377")
-	for k, v := range m {
-		r, _ := regexp.Compile("\\$" + k + "\\b")
-		s = r.ReplaceAllString(s, v)
-		r2, _ := regexp.Compile("\\${" + k + "}")
-		s = r2.ReplaceAllString(s, v)
+	for varName, value := range varValueMap {
+		r, _ := regexp.Compile("\\$" + varName + "\\b")
+		s = r.ReplaceAllString(s, value)
+		r2, _ := regexp.Compile("\\${" + varName + "}")
+		s = r2.ReplaceAllString(s, value)
 	}
 	s = strings.ReplaceAll(s, "\377", "$")
 	fmt.Print(s)
