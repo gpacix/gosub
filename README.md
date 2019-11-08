@@ -45,3 +45,19 @@ If you define a variable multiple times, it uses the $REDEF.
 ```
 
 Currently, undefined variables ARE NOT replaced with the empty string; the reference remains in the output.
+
+Here is the result of running `gosub` on the above template using the above variables file:
+```
+# This remains part of the resulting file.
+# Substitution happens even in comments (how could it tell?): fine
+Here's a value including any spaces.
+No quotes in this line, since: The double-quotes are not part of the value.
+There are single-quotes in this line, since: 'The outer quotes protect the inner.'
+no problems with leading space in variables file.
+If the variable wasn't defined, you get: $BLAHBLAH
+If you don't want a substitution, put a backslash before the dollar-sign: $MY_VAR
+Oh, yeah: curly-brace substitution works fine (but none of the other bash syntax).
+Lowercase variables work.
+Dash-containing variables are a mystery.
+If you define a variable multiple times, it uses the last-assigned value.
+```
