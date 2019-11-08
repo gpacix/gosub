@@ -58,6 +58,6 @@ If the variable wasn't defined, you get: $BLAHBLAH
 If you don't want a substitution, put a backslash before the dollar-sign: $MY_VAR
 Oh, yeah: curly-brace substitution works fine (but none of the other bash syntax).
 Lowercase variables work.
-Dash-containing variables are a mystery.
+Dash-containing variables also work.
 If you define a variable multiple times, it uses the last-assigned value.
 ```
